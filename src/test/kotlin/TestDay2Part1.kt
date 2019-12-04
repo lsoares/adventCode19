@@ -4,7 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
 
-object TestDay2 {
+object TestDay2Part1 {
 
     @JvmStatic
     fun input() = setOf(
@@ -28,7 +28,7 @@ object TestDay2 {
     @ParameterizedTest
     @MethodSource("input")
     fun basic(pair: Pair<List<Int>, List<Int>>) {
-        assertEquals(pair.second, Day2.calc(pair.first))
+        assertEquals(pair.second, Day2Part1.calc(pair.first))
     }
 
     @Test
@@ -37,6 +37,6 @@ object TestDay2 {
         val row = Scanner(inputStream).nextLine()
         val input = row.split(",").map { it.toInt() }.toList()
         val fixedInput = listOf(input.first()) + listOf(12, 2) + input.drop(3)
-        assertEquals(4714701, Day2.calc(fixedInput).first())
+        assertEquals(4714701, Day2Part1.calc(fixedInput).first())
     }
 }
