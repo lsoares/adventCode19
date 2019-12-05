@@ -4,7 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
 
-object TestDay1Part1 {
+object Day1Part1Test {
 
     @JvmStatic
     fun input() = setOf(12 to 2, 1969 to 654, 100756 to 33583)

@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 
-object TestDay2Part2 {
+object Day2Part2Test {
 
     @Test
     fun exercise() {

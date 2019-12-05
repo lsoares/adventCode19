@@ -4,7 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
 
-object TestDay2Part1 {
+object Day2Part1Test {
 
     @JvmStatic
     fun input() = setOf(
