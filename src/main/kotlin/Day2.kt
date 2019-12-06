@@ -1,6 +1,6 @@
-object Day2Part1 {
+object Day2 {
 
-    fun calc(source: List<Int>): List<Int> {
+    fun compute(source: List<Int>): List<Int> {
         val input = source.toMutableList()
         var ip = 0
         while (ip < input.size) {
@@ -17,5 +17,11 @@ object Day2Part1 {
             } else break
         }
         return input
+    }
+
+    fun execute(noun: Int, verb: Int, source: List<Int>): Int {
+        val initialState = listOf(source.first()) + listOf(noun, verb) + source.drop(3)
+        val finalState = compute(initialState)
+        return finalState.first()
     }
 }

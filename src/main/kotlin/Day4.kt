@@ -1,4 +1,4 @@
-object Day4Part1 {
+object Day4 {
 
     fun isValid(input: Int) =
         input in (111111..999999) && input.hasConsecutive() && input.increases()
@@ -9,4 +9,3 @@ object Day4Part1 {
     private fun Int.increases() =
         toString().zipWithNext().all { it.first <= it.second }
 }
-
