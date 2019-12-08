@@ -20,36 +20,48 @@ object Day5Test {
     @ParameterizedTest
     @MethodSource("input")
     fun `add and multiply by position`(pair: Pair<List<Int>, List<Int>>) {
-        assertEquals(pair.second, Day5.compute(pair.first))
+        val state = pair.first.toMutableList()
+        Day5.compute(state)
+        assertEquals(pair.second, state)
     }
 
     @Test
     fun `multiply with position and immediate (4~33 * 3 = 99)`() {
-        assertEquals(
-            listOf(1002, 4, 3, 4, 99),
-            Day5.compute(listOf(1002, 4, 3, 4, 33))
-        )
+        val state = mutableListOf(1002, 4, 3, 4, 33)
+        Day5.compute(state)
+        assertEquals(listOf(1002, 4, 3, 4, 99), state)
     }
 
     @Test
     fun `set position 5 as 666`() {
-        assertEquals(
-            listOf(3, 5, 99, 0, 0, 666),
-            Day5.compute(listOf(3, 5, 99, 0, 0, -1), 666)
-        )
+        val state = mutableListOf(3, 5, 99, 0, 0, -1)
+        Day5.compute(state, 666)
+        assertEquals(listOf(3, 5, 99, 0, 0, 666), state)
     }
 
     @Test
     fun `prints the 5th position`() {
-        Day5.compute(listOf(4, 5, 99, 0, 0, -1)) // prints -1
+        assertEquals(-1, Day5.compute(mutableListOf(4, 5, 99, 0, 0, -1)).last())
     }
 
     @Test
-    fun exercise() {
+    fun exercise1() {
         val inputStream = this::class.java.getResourceAsStream("day5.txt")
         val row = Scanner(inputStream).nextLine()
-        val input = row.split(",").map { it.toInt() }.toList()
+        val input = row.split(",").map { it.toInt() }.toMutableList()
 
-        Day5.compute(input) // prints 11933517
+        assertEquals(11933517, Day5.compute(input).last())
+    }
+
+    @Test
+    fun `is equals to 8? (position mode)`() {
+        assertEquals(
+            1,
+            Day5.compute(mutableListOf(3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8), 8).last()
+        )
+        assertEquals(
+            0,
+            Day5.compute(mutableListOf(3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8), 88).last()
+        )
     }
 }

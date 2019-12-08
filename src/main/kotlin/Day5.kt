@@ -1,7 +1,9 @@
+import Day5.Operation.Code
+import Day5.Operation.Mode
+
 object Day5 {
 
-    fun compute(initialState: List<Int>, input: Int = 1): List<Int> {
-        val state = initialState.toMutableList()
+    fun compute(state: MutableList<Int>, input: Int = 1): List<Int> {
         var ip = 0
         fun getArg(arg: Int, mode: Mode = Mode.POSITION) = when (mode) {
             Mode.IMMEDIATE -> state[ip + arg]
@@ -12,20 +14,25 @@ object Day5 {
             state[state[ip + arg]] = value
         }
 
+        val output = mutableListOf<Int>()
         while (ip < state.size) {
             val op = Operation(state[ip])
             when (op.code) {
-                Op.ADD ->
+                Code.ADD ->
                     setArg(3, getArg(1, op.param1Mode) + getArg(2, op.param2Mode))
-                Op.MULTIPLY ->
+                Code.MULTIPLY ->
                     setArg(3, getArg(1, op.param1Mode) * getArg(2, op.param2Mode))
-                Op.SET -> setArg(1, input)
-                Op.PRINT -> println(getArg(1))
-                Op.HALT -> return state
+                Code.SET -> setArg(1, input)
+                Code.PRINT -> output.add(getArg(1))
+                Code.HALT -> return output
+                Code.JUMP_IF_TRUE -> TODO()
+                Code.JUMP_IF_FALSE -> TODO()
+                Code.LESS_THAN -> TODO()
+                Code.EQUALS -> TODO()
             }
             ip += 1 + op.code.paramCount
         }
-        return state
+        return output
     }
 
     data class Operation(val value: Int) {
@@ -34,11 +41,15 @@ object Day5 {
         val param2Mode get() = getMode(1)
         val code
             get() = when (instruction.takeLast(2).toInt()) {
-                1 -> Op.ADD
-                2 -> Op.MULTIPLY
-                3 -> Op.SET
-                4 -> Op.PRINT
-                99 -> Op.HALT
+                1 -> Code.ADD
+                2 -> Code.MULTIPLY
+                3 -> Code.SET
+                4 -> Code.PRINT
+                5 -> Code.JUMP_IF_TRUE
+                6 -> Code.JUMP_IF_FALSE
+                7 -> Code.LESS_THAN
+                8 -> Code.EQUALS
+                99 -> Code.HALT
                 else -> throw IllegalArgumentException(instruction.takeLast(2))
             }
 
@@ -48,10 +59,17 @@ object Day5 {
                 '1' -> Mode.IMMEDIATE
                 else -> throw IllegalArgumentException(instruction[pos].toString())
             }
-    }
 
-    enum class Mode { IMMEDIATE, POSITION }
-    enum class Op(val paramCount: Int) {
-        ADD(3), MULTIPLY(3), HALT(0), SET(1), PRINT(1)
+        enum class Mode { IMMEDIATE, POSITION }
+        enum class Code(val paramCount: Int) {
+            ADD(3), MULTIPLY(3),
+            HALT(0),
+            SET(1),
+            PRINT(1),
+            JUMP_IF_TRUE(1),
+            JUMP_IF_FALSE(1),
+            LESS_THAN(2),
+            EQUALS(2)
+        }
     }
 }
