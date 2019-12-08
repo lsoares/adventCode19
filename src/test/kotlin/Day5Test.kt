@@ -84,4 +84,20 @@ object Day5Test {
         assertEquals(1, Day5.compute(initialState.toMutableList(), -8).last())
         assertEquals(0, Day5.compute(initialState.toMutableList(), 9).last())
     }
+
+    @Test
+    fun `jump if false (position mode)`() {
+        val initialState = listOf(3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9)
+
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 0).last())
+        assertEquals(1, Day5.compute(initialState.toMutableList(), 3).last())
+    }
+
+    @Test
+    fun `jump if true (immediate mode)`() {
+        val initialState = listOf(3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1)
+
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 0).last())
+        assertEquals(1, Day5.compute(initialState.toMutableList(), 3).last())
+    }
 }
