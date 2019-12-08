@@ -14,9 +14,8 @@ object Day4 {
         val res = IntArray(6)
         var consec = 0
         for (i in 1 until toString().length) {
-            if (toString()[i] == toString()[i - 1]) {
-                res[consec]++
-            } else consec++
+            if (toString()[i] == toString()[i - 1]) res[consec]++
+            else consec++
         }
         return res.toList()
     }

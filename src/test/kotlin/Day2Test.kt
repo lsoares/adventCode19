@@ -29,7 +29,7 @@ object Day2Test {
         val row = Scanner(inputStream).nextLine()
         val input = row.split(",").map { it.toInt() }.toList()
 
-        assertEquals(4714701, Day2.execute(12, 2, input))
+        assertEquals(4714701, Day2.calc(12, 2, input))
 
         val nounAndVerb = findSolution2(19690720, input)
         assertEquals(51 to 21, nounAndVerb)
@@ -38,7 +38,7 @@ object Day2Test {
     private fun findSolution2(solution: Int, source: List<Int>): Pair<Int, Int>? {
         for (nounIdx in 1..99) {
             for (verbIdx in 1..99) {
-                if (Day2.execute(nounIdx, verbIdx, source) == solution) {
+                if (Day2.calc(nounIdx, verbIdx, source) == solution) {
                     return nounIdx to verbIdx
                 }
             }

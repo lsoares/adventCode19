@@ -30,6 +30,7 @@ object Day3 {
             }
         }.flatten().toMap()
     }
+
     private data class Point(val x: Int, val y: Int) {
         fun move(move: Move) = when (move.direction) {
             Direction.L -> Point(x - move.amount, y)
