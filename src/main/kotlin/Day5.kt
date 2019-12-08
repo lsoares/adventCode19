@@ -27,8 +27,14 @@ object Day5 {
                 Code.HALT -> return output
                 Code.JUMP_IF_TRUE -> TODO()
                 Code.JUMP_IF_FALSE -> TODO()
-                Code.LESS_THAN -> TODO()
-                Code.EQUALS -> TODO()
+                Code.LESS_THAN -> {
+                    val isLessThan = getArg(1, op.param1Mode) < getArg(2, op.param2Mode)
+                    setArg(3, if (isLessThan) 1 else 0)
+                }
+                Code.EQUALS -> {
+                    val isEquals = getArg(1, op.param1Mode) == getArg(2, op.param2Mode)
+                    setArg(3, if (isEquals) 1 else 0)
+                }
             }
             ip += 1 + op.code.paramCount
         }
@@ -68,8 +74,8 @@ object Day5 {
             PRINT(1),
             JUMP_IF_TRUE(1),
             JUMP_IF_FALSE(1),
-            LESS_THAN(2),
-            EQUALS(2)
+            LESS_THAN(3),
+            EQUALS(3)
         }
     }
 }

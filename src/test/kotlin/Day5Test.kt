@@ -55,13 +55,33 @@ object Day5Test {
 
     @Test
     fun `is equals to 8? (position mode)`() {
-        assertEquals(
-            1,
-            Day5.compute(mutableListOf(3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8), 8).last()
-        )
-        assertEquals(
-            0,
-            Day5.compute(mutableListOf(3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8), 88).last()
-        )
+        val initialState = listOf(3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8)
+
+        assertEquals(1, Day5.compute(initialState.toMutableList(), 8).last())
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 88).last())
+    }
+
+    @Test
+    fun `is equals to 8? (immediate mode)`() {
+        val initialState = listOf(3, 3, 1108, -1, 8, 3, 4, 3, 99)
+
+        assertEquals(1, Day5.compute(initialState.toMutableList(), 8).last())
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 88).last())
+    }
+
+    @Test
+    fun `is less than 8? (position mode)`() {
+        val initialState = listOf(3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8)
+
+        assertEquals(1, Day5.compute(initialState.toMutableList(), -8).last())
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 9).last())
+    }
+
+    @Test
+    fun `is less than 8? (immediate mode)`() {
+        val initialState = listOf(3, 3, 1107, -1, 8, 3, 4, 3, 99)
+
+        assertEquals(1, Day5.compute(initialState.toMutableList(), -8).last())
+        assertEquals(0, Day5.compute(initialState.toMutableList(), 9).last())
     }
 }
