@@ -5,12 +5,12 @@ object Day6 {
         return orbits.map { visit(orbits, it.key) }.sum()
     }
 
-    fun calcMinJumps(orbitsStr: List<String>): Int {
+    fun calcMinJumps(orbitsStr: List<String>, a: String, b: String): Int {
         val orbits = calcGraph(orbitsStr)
         val pathYou = mutableListOf<String>()
-        orbits.pathTill("YOU", "COM", pathYou)
+        orbits.pathTill(a, "COM", pathYou)
         val pathSan = mutableListOf<String>()
-        orbits.pathTill("SAN", "COM", pathSan)
+        orbits.pathTill(b, "COM", pathSan)
 
         return pathYou.size + pathSan.size - (2 * pathYou.intersect(pathSan).size)
     }

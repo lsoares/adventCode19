@@ -22,7 +22,7 @@ object Day6Test {
         val orbitsStr =
             listOf("COM)B", "B)C", "C)D", "D)E", "E)F", "B)G", "G)H", "D)I", "E)J", "J)K", "K)L", "K)YOU", "I)SAN")
 
-        assertEquals(4, Day6.calcMinJumps(orbitsStr))
+        assertEquals(4, Day6.calcMinJumps(orbitsStr, "YOU", "SAN"))
     }
 
     @Test
@@ -31,6 +31,6 @@ object Day6Test {
         val input = Scanner(inputStream).asSequence().toList()
 
         assertEquals(234446, Day6.calcOrbitCount(input))
-        assertEquals(385, Day6.calcMinJumps(input))
+        assertEquals(385, Day6.calcMinJumps(input, "YOU", "SAN"))
     }
 }

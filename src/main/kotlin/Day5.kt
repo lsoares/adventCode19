@@ -3,7 +3,8 @@ import Day5.Operation.Mode
 
 object Day5 {
 
-    fun compute(state: MutableList<Int>, input: Int = 1): List<Int> {
+    fun compute(state: MutableList<Int>, input: List<Int> = listOf()): List<Int> {
+        val inputMutable = input.toMutableList()
         var ip = 0
         fun getArg(arg: Int, mode: Mode) = when (mode) {
             Mode.IMMEDIATE -> state[ip + arg]
@@ -23,11 +24,12 @@ object Day5 {
                     setArg(3, getArg(1, op.param1Mode) + getArg(2, op.param2Mode))
                 Code.MULTIPLY ->
                     setArg(3, getArg(1, op.param1Mode) * getArg(2, op.param2Mode))
-                Code.SET -> setArg(1, input)
-                Code.PRINT -> {
-                    output.add(getArg(1, op.param1Mode))
+                Code.SET -> {
+                    setArg(1, inputMutable[0])
+                    inputMutable.removeAt(0)
                 }
-                Code.HALT -> return output
+                Code.PRINT ->
+                    output.add(getArg(1, op.param1Mode))
                 Code.JUMP_IF_TRUE -> {
                     val isNonZero = getArg(1, op.param1Mode) != 0
                     if (isNonZero) jumpTo = getArg(2, op.param2Mode)
@@ -44,6 +46,7 @@ object Day5 {
                     val isEquals = getArg(1, op.param1Mode) == getArg(2, op.param2Mode)
                     setArg(3, if (isEquals) 1 else 0)
                 }
+                Code.HALT -> return output
             }
             if (jumpTo != -1) ip = jumpTo
             else ip += 1 + op.code.paramCount
