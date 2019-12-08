@@ -5,7 +5,7 @@ object Day5 {
 
     fun compute(state: MutableList<Int>, input: Int = 1): List<Int> {
         var ip = 0
-        fun getArg(arg: Int, mode: Mode = Mode.POSITION) = when (mode) {
+        fun getArg(arg: Int, mode: Mode) = when (mode) {
             Mode.IMMEDIATE -> state[ip + arg]
             Mode.POSITION -> state[state[ip + arg]]
         }
@@ -24,7 +24,9 @@ object Day5 {
                 Code.MULTIPLY ->
                     setArg(3, getArg(1, op.param1Mode) * getArg(2, op.param2Mode))
                 Code.SET -> setArg(1, input)
-                Code.PRINT -> output.add(getArg(1))
+                Code.PRINT -> {
+                    output.add(getArg(1, op.param1Mode))
+                }
                 Code.HALT -> return output
                 Code.JUMP_IF_TRUE -> {
                     val isNonZero = getArg(1, op.param1Mode) != 0
